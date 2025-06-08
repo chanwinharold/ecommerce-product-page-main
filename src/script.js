@@ -20,3 +20,15 @@ menuClose.addEventListener('click', (e) => {
 cart.addEventListener('click', () => {
     modal.classList.toggle('hidden')
 })
+
+nextArrow.addEventListener('click', () => {
+    const imgContainer = document.querySelector('.img-container')
+    let imageWidth = document.querySelector('.img-container img').clientWidth
+    imgContainer.scrollLeft += imageWidth
+})
+
+previousArrow.addEventListener('click', () => {
+    const imgContainer = document.querySelector('.img-container')
+    let imageWidth = document.querySelector('.img-container img').clientWidth
+    imgContainer.scrollLeft -= imageWidth
+})
