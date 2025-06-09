@@ -29,34 +29,37 @@
     <nav class="navbar">
         <svg id="menu-close" class="min-mobile:hidden" width="14" height="15" xmlns="http://www.w3.org/2000/svg"><path d="m11.596.782 2.122 2.122L9.12 7.499l4.597 4.597-2.122 2.122L7 9.62l-4.595 4.597-2.122-2.122L4.878 7.5.282 2.904 2.404.782l4.595 4.596L11.596.782Z" fill="#69707D" fill-rule="evenodd"/></svg>
         <ul class="max-mobile:mt-18 flex max-mobile:flex-col gap-4">
-            <li>Collections</li>
-            <li>Men</li>
-            <li>Women</li>
-            <li>About</li>
-            <li>Contact</li>
+            <li tabindex="0">Collections</li>
+            <li tabindex="0">Men</li>
+            <li tabindex="0">Women</li>
+            <li tabindex="0">About</li>
+            <li tabindex="0">Contact</li>
         </ul>
     </nav>
 
     <!--  avatar and cart icons  -->
     <div class="inline-flex items-center gap-4">
-        <svg id="cart" width="22" height="20" xmlns="http://www.w3.org/2000/svg"><path d="M20.925 3.641H3.863L3.61.816A.896.896 0 0 0 2.717 0H.897a.896.896 0 1 0 0 1.792h1l1.031 11.483c.073.828.52 1.726 1.291 2.336C2.83 17.385 4.099 20 6.359 20c1.875 0 3.197-1.87 2.554-3.642h4.905c-.642 1.77.677 3.642 2.555 3.642a2.72 2.72 0 0 0 2.717-2.717 2.72 2.72 0 0 0-2.717-2.717H6.365c-.681 0-1.274-.41-1.53-1.009l14.321-.842a.896.896 0 0 0 .817-.677l1.821-7.283a.897.897 0 0 0-.87-1.114ZM6.358 18.208a.926.926 0 0 1 0-1.85.926.926 0 0 1 0 1.85Zm10.015 0a.926.926 0 0 1 0-1.85.926.926 0 0 1 0 1.85Zm2.021-7.243-13.8.81-.57-6.341h15.753l-1.383 5.53Z" fill="#69707D" fill-rule="nonzero"/></svg>
-        <img class="max-w-[40px] border-3 border-transparent hover:border-secondary-800 rounded-full" src="images/image-avatar.png" alt="avatar photo">
+        <span id="cart" class="relative rounded-full">
+            <svg width="22" height="20" xmlns="http://www.w3.org/2000/svg"><path d="M20.925 3.641H3.863L3.61.816A.896.896 0 0 0 2.717 0H.897a.896.896 0 1 0 0 1.792h1l1.031 11.483c.073.828.52 1.726 1.291 2.336C2.83 17.385 4.099 20 6.359 20c1.875 0 3.197-1.87 2.554-3.642h4.905c-.642 1.77.677 3.642 2.555 3.642a2.72 2.72 0 0 0 2.717-2.717 2.72 2.72 0 0 0-2.717-2.717H6.365c-.681 0-1.274-.41-1.53-1.009l14.321-.842a.896.896 0 0 0 .817-.677l1.821-7.283a.897.897 0 0 0-.87-1.114ZM6.358 18.208a.926.926 0 0 1 0-1.85.926.926 0 0 1 0 1.85Zm10.015 0a.926.926 0 0 1 0-1.85.926.926 0 0 1 0 1.85Zm2.021-7.243-13.8.81-.57-6.341h15.753l-1.383 5.53Z" fill="#69707D" fill-rule="nonzero"/></svg>
+            <sup class="bubble hidden">15</sup>
+        </span>
+        <img tabindex="0" class="max-w-[40px] border-3 border-transparent transition-all duration-500 hover:border-secondary-800 focus:border-secondary-800 rounded-full" src="images/image-avatar.png" alt="avatar photo">
     </div>
 
     <!--  basket modal  -->
     <div class="modal-box hidden">
         <h2 class="text-neutral-900 font-bold p-6 border-b-1 border-b-neutral-500">Cart</h2>
-        <div class="p-6 flex flex-col gap-6">
-            <article>
+        <div id="modal-content" class="p-6 grid place-content-center gap-6">
+            <span class="empty-modal pt-10 text-neutral-700 font-bold text-center">Your cart is empty</span>
+            <article class="hidden">
                 <img class="thumbnail" src="images/image-product-1-thumbnail.jpg" alt="sneaker thumbnail image">
-                <div class="">
+                <div>
                     <p>Fall Limited Edition Sneakers</p>
-                    <p>$125 x 3 = <span>$375</span></p>
+                    <p data-calc="total-price"></p>
                 </div>
                 <img id="delete" src="images/icon-delete.svg" alt="trash">
             </article>
-
-            <button class="button">Checkout</button>
+            <button class="button hidden checkout">Checkout</button>
         </div>
     </div>
 </header>
@@ -66,17 +69,18 @@
     <!--  images section  -->
     <section class="relative">
         <div class="img-container">
-            <span id="previous-arrow" class="switch-arrow left-5"><svg width="12" height="18" xmlns="http://www.w3.org/2000/svg"><path d="M11 1 3 9l8 8" stroke="#1D2026" stroke-width="3" fill="none" fill-rule="evenodd"/></svg></span>
+            <span class="previous-arrow switch-arrow min-desktop:hidden left-5"><svg width="12" height="18" xmlns="http://www.w3.org/2000/svg"><path d="M11 1 3 9l8 8" stroke="#1D2026" stroke-width="3" fill="none" fill-rule="evenodd"/></svg></span>
 
-            <picture class="max-desktop:hidden col-start-1 col-end-5 row-span-1">
-                <source srcset="">
+            <picture class="max-desktop:hidden col-start-1 col-end-5 row-span-1 cursor-pointer">
+                <source class="preview-src" srcset="">
                 <img src="images/image-product-1.jpg" alt="a pair of sneakers">
             </picture>
-            <img class="img-container__element" src="images/image-product-1.jpg" alt="sneakers front view with a orange background">
-            <img class="img-container__element" src="images/image-product-2.jpg" alt="sneakers on three rocks superposed and behind a sticker of tree">
-            <img class="img-container__element" src="images/image-product-3.jpg" alt="a sneaker on two rocks superposed and a orange paper between the rocks">
-            <img class="img-container__element" src="images/image-product-4.jpg" alt="a sneaker in balance on two rocks superposed">
-            <span id="next-arrow" class="switch-arrow right-5"><svg width="12" height="18" xmlns="http://www.w3.org/2000/svg"><path d="m2 1 8 8-8 8" stroke="#1D2026" stroke-width="3" fill="none" fill-rule="evenodd"/></svg></span>
+            <img tabindex="0" class="img-container__element is-active" src="images/image-product-1.jpg" alt="sneakers front view with a orange background">
+            <img tabindex="0" class="img-container__element" src="images/image-product-2.jpg" alt="sneakers on three rocks superposed and behind a sticker of tree">
+            <img tabindex="0" class="img-container__element" src="images/image-product-3.jpg" alt="a sneaker on two rocks superposed and a orange paper between the rocks">
+            <img tabindex="0" class="img-container__element" src="images/image-product-4.jpg" alt="a sneaker in balance on two rocks superposed">
+
+            <span class="next-arrow min-desktop:hidden switch-arrow right-5"><svg width="12" height="18" xmlns="http://www.w3.org/2000/svg"><path d="m2 1 8 8-8 8" stroke="#1D2026" stroke-width="3" fill="none" fill-rule="evenodd"/></svg></span>
         </div>
     </section>
 
@@ -103,20 +107,35 @@
 
         <!--  buttons  -->
         <div class="flex flex-col gap-4 min-desktop:flex-row">
-            <div class="min-w-1/3 flex justify-between items-center bg-neutral-200 p-4 rounded-[0.625rem]">
+            <div tabindex="0" class="min-w-1/3 flex justify-between items-center bg-neutral-200 p-4 rounded-[0.625rem] focus:outline-secondary-800">
                 <svg id="minus" class="hover:opacity-75" width="12" height="4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M11.357 3.332A.641.641 0 0 0 12 2.69V.643A.641.641 0 0 0 11.357 0H.643A.641.641 0 0 0 0 .643v2.046c0 .357.287.643.643.643h10.714Z" id="a"/></defs><use fill="#FF7E1B" fill-rule="nonzero" xlink:href="#a"/></svg>
                 <span class="font-bold text-neutral-900" data-item="count">0</span>
                 <svg id="plus" class="hover:opacity-75" width="12" height="12" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M12 7.023V4.977a.641.641 0 0 0-.643-.643h-3.69V.643A.641.641 0 0 0 7.022 0H4.977a.641.641 0 0 0-.643.643v3.69H.643A.641.641 0 0 0 0 4.978v2.046c0 .356.287.643.643.643h3.69v3.691c0 .356.288.643.644.643h2.046a.641.641 0 0 0 .643-.643v-3.69h3.691A.641.641 0 0 0 12 7.022Z" id="b"/></defs><use fill="#FF7E1B" fill-rule="nonzero" xlink:href="#b"/></svg>
             </div>
 
-            <button class="button cart min-w-2/3">Add to cart</button>
+            <button tabindex="0" id="add-to-cart" class="button cart min-w-2/3">Add to cart</button>
         </div>
     </section>
 </main>
 
-<footer class="attribution" hidden>
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
-    Coded by <a href="https://github.com/chanwinharold" target="_blank">chanwinharold</a>.
-</footer>
+<aside class="hidden max-desktop:hidden max-w-100 fixed justify-self-center my-12 z-5">
+    <div class="relative">
+        <div class="grid grid-cols-4 gap-6">
+            <span class="aside-previous-arrow switch-arrow -left-5"><svg width="12" height="18" xmlns="http://www.w3.org/2000/svg"><path d="M11 1 3 9l8 8" stroke="#1D2026" stroke-width="3" fill="none" fill-rule="evenodd"/></svg></span>
+
+            <picture class="col-start-1 col-end-5 row-span-1">
+                <source srcset="">
+                <img class="rounded-lg" src="images/image-product-1.jpg" alt="a pair of sneakers">
+            </picture>
+            <img class="aside-image rounded-lg is-active" id="0" src="images/image-product-1.jpg" alt="sneakers front view with a orange background">
+            <img class="aside-image rounded-lg" id="1" src="images/image-product-2.jpg" alt="sneakers on three rocks superposed and behind a sticker of tree">
+            <img class="aside-image rounded-lg" id="2" src="images/image-product-3.jpg" alt="a sneaker on two rocks superposed and a orange paper between the rocks">
+            <img class="aside-image rounded-lg" id="3" src="images/image-product-4.jpg" alt="a sneaker in balance on two rocks superposed">
+
+            <span class="aside-next-arrow switch-arrow -right-5"><svg width="12" height="18" xmlns="http://www.w3.org/2000/svg"><path d="m2 1 8 8-8 8" stroke="#1D2026" stroke-width="3" fill="none" fill-rule="evenodd"/></svg></span>
+        </div>
+    </div>
+</aside>
+
 </body>
 </html>

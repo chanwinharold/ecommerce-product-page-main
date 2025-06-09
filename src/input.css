@@ -8,6 +8,7 @@
 
     --color-main-100: hsl(25, 100%, 94%);
     --color-secondary-800: hsl(26, 100%, 55%);
+    --color-blur: hsl(0, 0%, 0%, 0.75);
 
     --color-neutral-900: hsl(0, 0%, 0%);
     --color-neutral-700: hsl(220, 13%, 13%);
@@ -91,7 +92,7 @@
         isolation: isolate;
     }
 
-    /*Éléments cursor-pointer*/
+    /*Éléments cliquables*/
     #menu-hamburger,
     #menu-close,
     #cart,
@@ -104,10 +105,11 @@
     .switch-arrow,
     .button {
         cursor: pointer;
+        outline: none;
     }
 
 
-    /*general styling*/
+    /*general style*/
     body {
         font-family: var(--font-default), sans-serif;
         font-weight: var(--font-weight-regular);
@@ -124,7 +126,7 @@
         align-self: start;
     }
 
-    /*customize styling*/
+    /*customs styles*/
 
     .not-visible {
         position: absolute;
@@ -156,25 +158,37 @@
             li {
                 transition: all ease 400ms;
                 @apply inline-flex items-center min-desktop:px-4 border-b-3 border-b-transparent;
-                &:is(:hover, :active) {
+                &:is(:hover, :active, :focus) {
                     border-bottom-color: var(--color-secondary-800);
                 }
             }
         }
     }
     .on-screen { margin-left: 0; }
+    .bubble {
+        font-size: calc(var(--text-normal) - 0.5rem);
+        position: absolute;
+        top: 0;
+        right: -5px;
+        display: inline-grid;
+        place-content: center;
+        width: 15px; height: 10px;
+        color: var(--color-neutral-100);
+        font-weight: var(--font-weight-bold);
+        border-radius: 1rem;
+        background-color: var(--color-secondary-800);
+    }
 
     .modal-box {
         position: absolute;
+        right: 2.5%;
         @media (max-width: 975px) {
             top: calc(100% + 0.5rem);
-            right: 2.5%;
         }
         @media (min-width: 975px) {
             top: calc(100% - 0.5rem);
-            right: 2.5%;
         }
-        box-shadow: rgba(50, 50, 93, 0.25) 0 13px 27px -5px, rgba(0, 0, 0, 0.3) 0 8px 16px -8px;
+        box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
         background-color: var(--color-neutral-100);
         min-height: 15rem;
         width: min(95%, 23rem);
@@ -199,15 +213,6 @@
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 1.5rem;
-
-            .img-container__element {
-                transition: all ease 400ms;
-                @apply border-3 border-transparent hover:opacity-50;
-            }
-            .is-active {
-                border-color: var(--color-secondary-800);
-                opacity: 50%;
-            }
         }
 
         &::-webkit-scrollbar { display: none; }
@@ -215,15 +220,29 @@
             @media (min-width: 975px) {  border-radius: 1rem;  } }
     }
     .switch-arrow {
-        @apply min-desktop:hidden absolute w-[40px] h-[40px] top-1/2 -translate-y-1/2 bg-neutral-100 rounded-full flex items-center justify-center;
+        @apply absolute w-[40px] h-[40px] top-1/2 -translate-y-1/2 bg-neutral-100 rounded-full flex items-center justify-center;
+
+        &:is(:hover, :active) path {
+            stroke: var(--color-secondary-800);
+        }
+    }
+    @media (min-width: 975px) {
+        .img-container__element, .aside-image {
+            transition: all ease 400ms;
+            @apply border-3 border-transparent hover:opacity-75;
+        }
+        .is-active, .img-container__element:focus {
+            border-color: var(--color-secondary-800);
+            opacity: 75%;
+        }
     }
 
     .button {
         transition: all ease 400ms;
-        @apply inline-flex gap-4 justify-center items-center p-4 bg-secondary-800 rounded-[0.625rem] font-bold text-neutral-700;
-        &:hover {
+        @apply inline-flex gap-4 justify-center items-center p-4 bg-secondary-800 rounded-[0.625rem] border-2 border-transparent font-bold text-neutral-700;
+        &:is(:hover, :focus) {
+            border-color: var(--color-secondary-800);
             background-color: hsl(var(--accent-secondary), 0.75);
-            cursor: pointer;
         }
     }
     .cart::before {
@@ -234,14 +253,12 @@
     }
 
     .blur-background {
-        @media (max-width: 600px) {
-            position: fixed;
-            top: 0;
-            bottom: 0;
-            right: 0;
-            left: 0;
-            background-color: hsl(0, 0%, 0%, 0.75);
-            z-index: 5;
-        }
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        background-color: var(--color-blur);
+        z-index: 5;
     }
 }
