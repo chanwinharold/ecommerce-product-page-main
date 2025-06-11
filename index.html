@@ -15,25 +15,26 @@
 </head>
 <body>
 
+<!-- blur background for the mobile menu and the desktop preview images -->
 <div class="blur-background hidden"></div>
 
-<header class="min-h-16 flex justify-between px-6 gap-4 border-b-1 border-b-neutral-500 relative">
-
-    <!--  logo and menu icons  -->
+<!-- Header -->
+<header class="min-h-16 min-desktop:min-h-25 flex justify-between px-6 gap-4 border-b-1 border-b-neutral-500 relative">
+    <!--  logo and mobile menu icons  -->
     <div class="inline-flex items-center gap-4">
         <svg id="menu-hamburger" class="min-mobile:hidden" width="16" height="15" xmlns="http://www.w3.org/2000/svg"><path d="M16 12v3H0v-3h16Zm0-6v3H0V6h16Zm0-6v3H0V0h16Z" fill="#69707D" fill-rule="evenodd"/></svg>
         <img src="images/logo.svg" alt="sneakers">
     </div>
 
-    <!--  menu  -->
+    <!--  mobile menu and navbar for desktop -->
     <nav class="navbar">
         <svg id="menu-close" class="min-mobile:hidden" width="14" height="15" xmlns="http://www.w3.org/2000/svg"><path d="m11.596.782 2.122 2.122L9.12 7.499l4.597 4.597-2.122 2.122L7 9.62l-4.595 4.597-2.122-2.122L4.878 7.5.282 2.904 2.404.782l4.595 4.596L11.596.782Z" fill="#69707D" fill-rule="evenodd"/></svg>
         <ul class="max-mobile:mt-18 flex max-mobile:flex-col gap-4">
-            <li tabindex="0">Collections</li>
-            <li tabindex="0">Men</li>
-            <li tabindex="0">Women</li>
-            <li tabindex="0">About</li>
-            <li tabindex="0">Contact</li>
+            <li tabindex="0"><a href="#">Collections</a></li>
+            <li tabindex="0"><a href="#">Men</a></li>
+            <li tabindex="0"><a href="#">Women</a></li>
+            <li tabindex="0"><a href="#">About</a></li>
+            <li tabindex="0"><a href="#">Contact</a></li>
         </ul>
     </nav>
 
@@ -64,8 +65,8 @@
     </div>
 </header>
 
+<!-- Main content -->
 <main class="min-desktop:grid grid-cols-2 gap-20">
-
     <!--  images section  -->
     <section class="relative">
         <div class="img-container">
@@ -86,12 +87,13 @@
 
     <!--  main content  -->
     <section class="grid gap-4 p-6 place-self-center">
+        <!--     Title and paragraph      -->
         <p class="text-xs tracking-widest font-bold uppercase">Sneaker Company</p>
         <h1 class="text-3xl min-desktop:text-4xl leading-8 font-bold text-neutral-900">Fall Limited Edition Sneakers</h1>
         <p>These low-profile sneakers are your perfect casual wear companion. Featuring a
             durable rubber outer sole, they’ll withstand everything the weather can offer.</p>
 
-        <!--  prices  -->
+        <!--  prices section -->
         <div class="flex gap-2 min-desktop:flex-col justify-between max-desktop:items-center my-2">
             <div class="inline-flex gap-2 items-center">
                 <span class="not-visible" aria-hidden="true">Sneakers price :</span>
@@ -107,17 +109,20 @@
 
         <!--  buttons  -->
         <div class="flex flex-col gap-4 min-desktop:flex-row">
+            <!--      Add and minus buttons      -->
             <div tabindex="0" class="min-w-1/3 flex justify-between items-center bg-neutral-200 p-4 rounded-[0.625rem] focus:outline-secondary-800">
                 <svg id="minus" class="hover:opacity-75" width="12" height="4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M11.357 3.332A.641.641 0 0 0 12 2.69V.643A.641.641 0 0 0 11.357 0H.643A.641.641 0 0 0 0 .643v2.046c0 .357.287.643.643.643h10.714Z" id="a"/></defs><use fill="#FF7E1B" fill-rule="nonzero" xlink:href="#a"/></svg>
                 <span class="font-bold text-neutral-900" data-item="count">0</span>
                 <svg id="plus" class="hover:opacity-75" width="12" height="12" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M12 7.023V4.977a.641.641 0 0 0-.643-.643h-3.69V.643A.641.641 0 0 0 7.022 0H4.977a.641.641 0 0 0-.643.643v3.69H.643A.641.641 0 0 0 0 4.978v2.046c0 .356.287.643.643.643h3.69v3.691c0 .356.288.643.644.643h2.046a.641.641 0 0 0 .643-.643v-3.69h3.691A.641.641 0 0 0 12 7.022Z" id="b"/></defs><use fill="#FF7E1B" fill-rule="nonzero" xlink:href="#b"/></svg>
             </div>
 
+            <!--  Add to cart button   -->
             <button tabindex="0" id="add-to-cart" class="button cart min-w-2/3">Add to cart</button>
         </div>
     </section>
 </main>
 
+<!-- Desktop light box for sneakers zoom view -->
 <aside class="hidden max-desktop:hidden max-w-100 fixed justify-self-center my-12 z-5">
     <div class="relative">
         <div class="grid grid-cols-4 gap-6">

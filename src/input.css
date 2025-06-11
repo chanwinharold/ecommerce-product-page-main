@@ -35,8 +35,7 @@
     --spacing-desktop: 975px;
 }
 @layer base {
-
-    /* CSS Reset*/
+    /***************** CSS Reset***********************************************/
     /* 1. Use a more-intuitive box-sizing model */
     *, *::before, *::after {
         box-sizing: border-box;
@@ -49,9 +48,10 @@
 
     /* 3. Enable keyword animations */
     @media (prefers-reduced-motion: no-preference) {
-        html {
-            interpolate-size: allow-keywords;
-        }
+        /*don't work*/
+        /*html {*/
+        /*    interpolate-size: allow-keywords;*/
+        /*}*/
     }
 
     body {
@@ -92,7 +92,7 @@
         isolation: isolate;
     }
 
-    /*Éléments cliquables*/
+    /*reset clickable elements*/
     #menu-hamburger,
     #menu-close,
     #cart,
@@ -108,8 +108,11 @@
         outline: none;
     }
 
+    /**********************************************************************************/
 
-    /*general style*/
+
+
+    /*******************GENERAL STYLING*********************************************/
     body {
         font-family: var(--font-default), sans-serif;
         font-weight: var(--font-weight-regular);
@@ -125,16 +128,21 @@
         justify-self: center;
         align-self: start;
     }
+    /**********************************************************************************/
 
-    /*customs styles*/
 
+    /***********************CUSTOMS STYLES***************************************************************/
+
+    /*For accessibility informations that are visually hidden*/
     .not-visible {
         position: absolute;
         left: -9999px;
         opacity: 0;
     }
 
+    /****Navigation menu*/
     .navbar {
+        /*mobile style*/
         @media (max-width: 600px) {
             min-width: 70%;
             position: fixed;
@@ -142,15 +150,20 @@
             bottom: 0;
             left: 0;
             padding: 1.5rem;
+            z-index: 10;
+
+            /*transition to make the menu appearing smoothly*/
             margin-left: -100%;
             transition: all 500ms ease;
-            z-index: 10;
+            /*************************************************/
 
             font-size: calc(var(--text-normal) + 0.25rem);
             color: var(--color-neutral-800);
             font-weight: var(--font-weight-bold);
             background-color: var(--color-neutral-100);
         }
+
+        /*Desktop style*/
         @media (min-width: 600px) {
             &, ul, li {
                 min-height: 100%;
@@ -164,7 +177,11 @@
             }
         }
     }
+
+    /* custom class to make appear the mobile menu smoothly*/
     .on-screen { margin-left: 0; }
+
+    /*bubble that appear to show the count of articles added to the cart */
     .bubble {
         font-size: calc(var(--text-normal) - 0.5rem);
         position: absolute;
@@ -179,15 +196,14 @@
         background-color: var(--color-secondary-800);
     }
 
+    /****modal for the cart ***/
     .modal-box {
+        /*position for mobile and desktop*/
         position: absolute;
         right: 2.5%;
-        @media (max-width: 975px) {
-            top: calc(100% + 0.5rem);
-        }
-        @media (min-width: 975px) {
-            top: calc(100% - 0.5rem);
-        }
+        @media (max-width: 975px) {  top: calc(100% + 0.5rem);  }
+        @media (min-width: 975px) {  top: calc(100% - 0.5rem);  }
+
         box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
         background-color: var(--color-neutral-100);
         min-height: 15rem;
@@ -195,48 +211,55 @@
         border-radius: 0.5rem;
         z-index: 4;
 
+        /*custom style for the modal content (article purchased, price, trash icon,..)*/
         article { @apply flex justify-between items-center gap-3;
-            .thumbnail { @apply max-w-15 rounded-md; }
             div { @apply flex flex-col;
-                span {
-                    @apply text-neutral-900 font-bold; } }
-        }
+                span { @apply text-neutral-900 font-bold; } }
+            .thumbnail { @apply max-w-15 rounded-md; } }
     }
 
+    /*images container*/
     .img-container {
+
+        /*for the mobile scroll effect*/
         display: flex;
         overflow-x: scroll;
         scroll-snap-type: x mandatory;
         scroll-behavior: smooth;
+        img { scroll-snap-align: start; }
 
+        /*desktop grid layout*/
         @media (min-width: 975px) {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 1.5rem;
+            img { border-radius: 1rem; }
         }
 
+        /*to hide the scrollbar*/
         &::-webkit-scrollbar { display: none; }
-        img { scroll-snap-align: start;
-            @media (min-width: 975px) {  border-radius: 1rem;  } }
     }
-    .switch-arrow {
-        @apply absolute w-[40px] h-[40px] top-1/2 -translate-y-1/2 bg-neutral-100 rounded-full flex items-center justify-center;
-
+    /*scroll arrow icon styling*/
+    .switch-arrow { @apply absolute w-[40px] h-[40px] top-1/2 -translate-y-1/2 bg-neutral-100 rounded-full flex items-center justify-center;
+        /*for the hover or focus state (color) of the arrow icon*/
         &:is(:hover, :active) path {
-            stroke: var(--color-secondary-800);
-        }
+            stroke: var(--color-secondary-800);}
     }
+
+    /*for desktop light box images container and normal images container */
     @media (min-width: 975px) {
         .img-container__element, .aside-image {
             transition: all ease 400ms;
             @apply border-3 border-transparent hover:opacity-75;
         }
+        /*custom style handled with javascript when the mini-image is clicked*/
         .is-active, .img-container__element:focus {
             border-color: var(--color-secondary-800);
             opacity: 75%;
         }
     }
 
+    /**main button style**/
     .button {
         transition: all ease 400ms;
         @apply inline-flex gap-4 justify-center items-center p-4 bg-secondary-800 rounded-[0.625rem] border-2 border-transparent font-bold text-neutral-700;
@@ -245,6 +268,7 @@
             background-color: hsl(var(--accent-secondary), 0.75);
         }
     }
+    /*cart icon styling for the "Add to cart" button*/
     .cart::before {
         content: "";
         width: 20px; height: 20px;
@@ -252,6 +276,7 @@
         background-size: contain;
     }
 
+    /* blur background style*/
     .blur-background {
         position: fixed;
         top: 0;

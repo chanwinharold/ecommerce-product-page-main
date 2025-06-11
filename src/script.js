@@ -39,15 +39,22 @@ const asideSource = document.querySelector('aside source')
 
 
 // Event Listeners
+
+// For all mini images
 miniImages.forEach((image) => {
+    // When one is clicked
     image.addEventListener('click', (e) => {
+        // those who are not clicked are disabled
         miniImages.forEach((image) => image.classList.remove('is-active'))
+        // And if the one who is clicked is not already activated
         if (!('is-active' in image.classList)) {
+            // activate it
             image.classList.add('is-active')
             source.srcset = e.target.src
         }
     })
 })
+// Same process for the light box images
 asideMiniImages.forEach((image) => {
     image.addEventListener('click', (e) => {
         asideMiniImages.forEach((image) => image.classList.remove('is-active'))
@@ -60,83 +67,117 @@ asideMiniImages.forEach((image) => {
 })
 
 let i = 0
+// For the light box, if the next arrow of the light box is clicked
 nextAsideArrow.addEventListener('click', () => {
+    // go to the next image index and show it
     i = i >= (asideMiniImages.length - 1) ? (asideMiniImages.length - 1) : i + 1;
     showAsideImage(i)
 })
+// but if it's the previous arrow that's clicked
 previousAsideArrow.addEventListener('click', () => {
+    // go to the previous image index and show it
     i = i <= 0 ? 0 : i - 1;
     showAsideImage(i)
 })
 
-maxiImage.addEventListener('click', (e) => {
-    blurBackground.classList.remove('hidden')
-    asideContainer.classList.remove('hidden')
-})
-blurBackground.addEventListener('click', (e) => {
-    asideContainer.classList.add('hidden')
-})
-
-menuHamburger.addEventListener('click', () => {
-    navBar.classList.add('on-screen')
-    blurBackground.classList.remove('hidden')
-})
-
-menuClose.forEach((element) => {
-    element.addEventListener('click', () => {
-        navBar.classList.remove('on-screen')
-        blurBackground.classList.add('hidden')
-    })
-})
-
-cart.addEventListener('click', () => {
-    modal.classList.toggle('hidden')
-})
-
+// Same process here, but it's for the mobile images container
 nextArrow.addEventListener('click', () => {
     const imgContainer = document.querySelector('.img-container')
     let imageWidth = document.querySelector('.img-container__element').clientWidth
     imgContainer.scrollLeft += imageWidth
 })
-
 previousArrow.addEventListener('click', () => {
     const imgContainer = document.querySelector('.img-container')
     let imageWidth = document.querySelector('.img-container__element').clientWidth
     imgContainer.scrollLeft -= imageWidth
 })
 
-let count = 0
+// if the maxi image of the desktop layout is clicked
+maxiImage.addEventListener('click', () => {
+    // show the light box and add the blur background
+    blurBackground.classList.remove('hidden')
+    asideContainer.classList.remove('hidden')
+})
+// for the desktop light box if the blur background is clicked
+blurBackground.addEventListener('click', () => {
+    // hide the light box
+    asideContainer.classList.add('hidden')
+})
 
+// for mobile media if the menu hamburger icon is clicked
+menuHamburger.addEventListener('click', () => {
+    // show the mobile menu and add the blur background
+    navBar.classList.add('on-screen')
+    blurBackground.classList.remove('hidden')
+})
+
+// for mobile media if the menu close icon is clicked
+menuClose.forEach((element) => {
+    element.addEventListener('click', () => {
+        // hide the mobile menu and add the blur background
+        navBar.classList.remove('on-screen')
+        blurBackground.classList.add('hidden')
+    })
+})
+
+// if the cart icon is clicked show or hide the cart modal box
+cart.addEventListener('click', () => {
+    modal.classList.toggle('hidden')
+})
+// but if the cart modal box is visible and the user click on the body hide it
+document.body.addEventListener('click', (e) => {
+    if (!modal.classList.contains('hidden') && !modal.contains(e.target) &&!cart.contains(e.target) && !btnAddToCart.contains(e.target)) {
+        modal.classList.add('hidden');
+    }
+});
+
+
+let count = 0
+// if the plus button is clicked increment of 1 the count and show it in the button
 btnAddArticle.addEventListener('click', () => {
     count++; countArticle.innerText = count;
 })
+// but if the minus button is clicked decrement of 1 the count and show it in the button
 btnRemoveArticle.addEventListener('click', () => {
     count = (count <= 0) ? 0 : count - 1;
     countArticle.innerText = count
 })
 
+// listener for the add to cart button
 btnAddToCart.addEventListener('click', () => {
+    // if the count of articles added to the cart is superior to 0
     if (count > 0) {
+        // show the count in the cart modal box and calculate the total price
         addToCart(count)
+        // then, scroll to the top of the page to let the user see the articles added
         window.scroll({
             top: 0,
             behavior: "smooth"
         })
+        // and then, show the bubble on the cart icon and add the count of articles added
         modal.classList.remove('hidden')
         bubble.classList.remove('hidden')
         bubble.textContent = count
     }
 })
 
+// if the trash icon is clicked
 btnDeleteArticle.addEventListener('click', () => {
+    // remove the articles from the cart
     removeFromCart()
+    // and hide the bubble
     bubble.classList.add('hidden')
 })
 
+//  but if the user click on the checkout button to purchase the articles
 btnBuyArticle.addEventListener('click', () => {
+    // empty the articles from the cart
     removeFromCart()
+    // hide the bubble
     bubble.classList.add('hidden')
+    // show a confirmation message of the purchase
     alert('Purchase completed !!')
+    //  and then hide the cart modal box
     modal.classList.add('hidden')
 })
 
